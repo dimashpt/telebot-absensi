@@ -1,13 +1,28 @@
-import { Telegraf } from 'telegraf';
-import { message } from 'telegraf/filters';
+import { FileAdapter } from "@grammyjs/storage-file";
+import { Bot, Context, session, SessionFlavor } from "grammy";
+import { MainContext, SessionData } from "./context";
 
-const bot = new Telegraf(process.env.BOT_TOKEN!);
-bot.start((context) => context.reply('Welcome'));
-bot.help((context) => context.reply('Send me a sticker'));
-bot.on(message('sticker'), (context) => context.reply('👍'));
-bot.hears('hi', (context) => context.reply('Hey there'));
-bot.launch();
+const bot = new Bot<MainContext>(process.env.BOT_TOKEN!);
 
-// Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+// Pasang middleware session, kemudian tentukan nilai awal session.
+function initial(): SessionData {
+  return { page: 0 };
+}
+
+// Middleware untuk mengatur session pada bot.
+bot.use(session({
+  initial,
+  storage: new FileAdapter()
+}));
+
+// Command untuk menampilkan level UwU.
+bot.command("meong", async (ctx) => {
+  const count = ctx.session.page;
+  await ctx.reply(`Tingkat UwU kamu berada di level ${count}!`);
+});
+
+// Middleware untuk menambah level UwU ketika ada pesan yang mengandung emoji 🐱.
+bot.hears(/.*🐱.*/, (ctx) => ctx.session.page!++);
+
+// Menjalankan bot.
+bot.start();

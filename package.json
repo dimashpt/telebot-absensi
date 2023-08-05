@@ -12,14 +12,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "telegraf": "^4.12.2"
+    "@grammyjs/menu": "^1.2.1",
+    "@grammyjs/storage-file": "^2.3.0",
+    "dotenv": "^16.3.1",
+    "grammy": "^1.17.2",
+    "grammy-inline-menu": "^8.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.1.4",
-    "nodemon": "^2.0.22",
-    "rimraf": "^5.0.0",
+    "@types/node": "^20.4.7",
+    "nodemon": "^3.0.1",
+    "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6"
   }
 }
