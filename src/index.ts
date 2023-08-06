@@ -4,6 +4,7 @@ import { Bot, Context, session, SessionFlavor } from "grammy";
 import { MenuTemplate, MenuMiddleware } from 'grammy-inline-menu';
 import { intialData as initial, MainContext } from "./context";
 import menu from "./menu-main";
+import { I18n } from "@grammyjs/i18n";
 
 // Membuat instance bot baru
 const bot = new Bot<MainContext>(process.env.BOT_TOKEN!);
@@ -14,25 +15,14 @@ bot.use(session({
   storage: new FileAdapter()
 }));
 
-// // Membuat template menu baru
-// const menuTemplate = new MenuTemplate<MainContext>(ctx => `Hai ${ctx.from!.first_name}!`)
+// Buat sebuah instance `I18n`.
+// Lanjutkan membaca untuk mengetahui bagaimana cara mengatur instance ini.
+const i18n = new I18n<MainContext>({
+  defaultLocale: "id", // Lihat di bawah untuk informasi lebih lanjut.
+  directory: "locales", // Muat semua file terjemahan dari locales/.
+});
 
-// // Menambahkan interaksi ke dalam template menu
-// menuTemplate.interact('Text', 'unique', {
-//   do: async ctx => {
-//     await ctx.answerCallbackQuery('Hooh')
-//     return false
-//   }
-// })
-
-// // Menambahkan interaksi lain ke dalam template menu
-// menuTemplate.interact('Text', 'dis', {
-//   joinLastRow: true,
-//   do: async ctx => {
-//     await ctx.answerCallbackQuery('yaay')
-//     return false
-//   }
-// })
+bot.use(i18n);
 
 // Membuat middleware menu baru
 const menuMiddleware = new MenuMiddleware('/', menu);
