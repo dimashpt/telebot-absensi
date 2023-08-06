@@ -1,9 +1,8 @@
 import { MenuTemplate } from 'grammy-inline-menu';
+import { SubmenuOptions } from 'grammy-inline-menu/dist/source/buttons/submenu';
 import { MainContext } from '../context';
 import menuPresensi from './presensi';
 import menuPengaturan from './settings';
-import { SubmenuOptions } from 'grammy-inline-menu/dist/source/buttons/submenu';
-import { getEmployee } from '../services/pegawai';
 import { menuInformation } from '.';
 
 const joinRow: SubmenuOptions<MainContext> = {

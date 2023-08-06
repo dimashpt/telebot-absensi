@@ -11,16 +11,17 @@ export default function initMenu(bot: Bot<MainContext>): void {
   // Menambahkan command ke dalam bot
   bot.command('start', async (ctx) => {
     try {
-      const data = await servicePegawai.getEmployee(ctx.from!.username!);
+      const data = await servicePegawai.getEmployee();
 
-      if (data?.aktif) {
-        menuMiddleware.replyToContext(ctx);
-      } else {
-        throw new Error();
+      if (data.error) {
+        return ctx.reply(data.message);
       }
+
+      ctx.session.user = data;
+      menuMiddleware.replyToContext(ctx);
     } catch (error) {
-      // console.error(error);
-      ctx.reply('Anda tidak memiliki akses ke bot ini');
+      // console.log(error);
+      ctx.reply('Ada yang salah, harap coba beberapa saat lagi');
     }
   });
 

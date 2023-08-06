@@ -1,4 +1,6 @@
 export interface Employee {
+  error: boolean;
+  message: string;
   nik: string;
   username: string;
   nama_pegawai: string;
