@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Employee } from '../models';
+import { Employee } from './models';
 
 export async function getEmployee(username: string): Promise<Employee> {
   const { data } = await axios.get<Employee>(process.env.SCRIPT_URL!, {

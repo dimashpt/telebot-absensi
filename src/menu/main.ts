@@ -1,29 +1,24 @@
-import { MenuTemplate, getMenuOfPath } from 'grammy-inline-menu';
-import { MainContext } from './context';
+import { MenuTemplate } from 'grammy-inline-menu';
+import { MainContext } from '../context';
 import menuPresensi from './presensi';
-import menuPengaturan from './pengaturan';
-import { Composer } from 'grammy';
+import menuPengaturan from './settings';
 import { SubmenuOptions } from 'grammy-inline-menu/dist/source/buttons/submenu';
-import axios from 'axios';
-import { Employee } from './models';
-import { getEmployee } from './services/pegawai';
+import { getEmployee } from '../services/pegawai';
 
-export const mainComposer = new Composer<MainContext>();
 const joinRow: SubmenuOptions<MainContext> = {
   joinLastRow: true,
 };
 
-const menu = new MenuTemplate<MainContext>((ctx) => {
+const mainMenu = new MenuTemplate<MainContext>((ctx) => {
   return ctx.t('main-greetings', {
     name: ctx.from!.first_name,
   });
 });
 
-menu.submenu(() => '✅ Presensi', 'presensi', menuPresensi);
-menu.submenu(() => '📝 Riwayat Kehadiran', 'riwayat', menuPresensi);
-menu.submenu(() => '❌ Cuti', 'cuti', menuPresensi, joinRow);
-// menu.submenu(() => '🙎‍♂️ Informasi Pribadi', 'informasi', menuPresensi);
-menu.interact(() => '🙎‍♂️ Informasi Pribadi', 'informasi', {
+mainMenu.submenu(() => '✅ Presensi', 'presensi', menuPresensi);
+mainMenu.submenu(() => '📝 Riwayat Kehadiran', 'riwayat', menuPresensi);
+mainMenu.submenu(() => '❌ Cuti', 'cuti', menuPresensi, joinRow);
+mainMenu.interact(() => '🙎‍♂️ Informasi Pribadi', 'informasi', {
   do: async (ctx, path) => {
     try {
       const data = await getEmployee(ctx.from!.username!);
@@ -51,6 +46,7 @@ menu.interact(() => '🙎‍♂️ Informasi Pribadi', 'informasi', {
     }
   },
 });
-menu.submenu(() => '⚙️ Pengaturan', 'pengaturan', menuPengaturan, joinRow);
 
-export default menu;
+mainMenu.submenu(() => '⚙️ Pengaturan', 'pengaturan', menuPengaturan, joinRow);
+
+export default mainMenu;

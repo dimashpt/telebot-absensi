@@ -1,6 +1,6 @@
 import type { Context, SessionFlavor } from 'grammy';
 import { I18nFlavor } from '@grammyjs/i18n';
-import { Employee } from './models';
+import { Employee } from './services/models';
 
 export type SessionData = {
   page?: number;

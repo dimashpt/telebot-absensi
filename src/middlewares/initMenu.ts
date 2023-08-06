@@ -1,7 +1,7 @@
 import { Bot } from 'grammy';
 import { MainContext } from '../context';
 import { MenuMiddleware } from 'grammy-inline-menu';
-import menu from '../menu-main';
+import menu from '../menu/main';
 import { getEmployee } from '../services/pegawai';
 
 export default function initMenu(bot: Bot<MainContext>): void {
@@ -9,7 +9,20 @@ export default function initMenu(bot: Bot<MainContext>): void {
   const menuMiddleware = new MenuMiddleware('/', menu);
 
   // Menambahkan command ke dalam bot
-  bot.command('start', (ctx) => menuMiddleware.replyToContext(ctx));
+  bot.command('start', async (ctx) => {
+    try {
+      const data = await getEmployee(ctx.from!.username!);
+
+      if (data?.aktif) {
+        menuMiddleware.replyToContext(ctx);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      // console.error(error);
+      ctx.reply('Anda tidak memiliki akses ke bot ini');
+    }
+  });
 
   // Menggunakan middleware menu pada bot
   bot.use(menuMiddleware);
