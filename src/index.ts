@@ -1,30 +1,38 @@
 // Import modul yang diperlukan
 import { Bot } from 'grammy';
 import { MainContext } from './context';
-import initSession from './middlewares/initSession';
-import initI18n from './middlewares/initI18n';
-import initRouter from './middlewares/initRouter';
-import initMenu from './middlewares/initMenu';
-import initBot from './middlewares/initBot';
-import initAccess from './middlewares/initAccess';
+import {
+  middlewareAuth,
+  middlewareI18n,
+  middlewareMenu,
+  middlewareRouter,
+  middlewareSession,
+} from './middlewares';
 
 // Membuat instance bot baru
 const bot = new Bot<MainContext>(process.env.BOT_TOKEN!);
 
 // Menggunakan middleware session pada bot
-initSession(bot);
+middlewareSession(bot);
 
 // Menggunakan middleware access pada bot
-initAccess(bot);
+middlewareAuth(bot);
 
 // Menggunakan middleware i18n pada bot
-initI18n(bot);
+middlewareI18n(bot);
 
 // Menggunakan middleware router pada bot
-initRouter(bot);
+middlewareRouter(bot);
 
 // Menggunakan middleware menu pada bot
-initMenu(bot);
+middlewareMenu(bot);
+
+// Menetapkan command bot
+bot.api.setMyCommands([{ command: 'start', description: 'Buka menu utama' }]);
 
 // Memulai bot
-initBot(bot);
+bot.start({
+  onStart(botInfo) {
+    console.log(new Date(), 'Bot starts as', botInfo.username);
+  },
+});
