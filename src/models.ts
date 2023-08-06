@@ -6,6 +6,6 @@ export interface Employee {
   gaji_pokok: number;
   tunjangan: number;
   total_gaji: number;
-  masa_kerja: Date;
+  masa_kerja: Date | string;
   aktif: boolean;
 }

@@ -6,6 +6,7 @@ import { Composer } from 'grammy';
 import { SubmenuOptions } from 'grammy-inline-menu/dist/source/buttons/submenu';
 import axios from 'axios';
 import { Employee } from './models';
+import { getEmployee } from './services/pegawai';
 
 export const mainComposer = new Composer<MainContext>();
 const joinRow: SubmenuOptions<MainContext> = {
@@ -25,12 +26,7 @@ menu.submenu(() => '❌ Cuti', 'cuti', menuPresensi, joinRow);
 menu.interact(() => '🙎‍♂️ Informasi Pribadi', 'informasi', {
   do: async (ctx, path) => {
     try {
-      const { data } = await axios.get<Employee>(process.env.SCRIPT_URL!, {
-        params: {
-          action: 'getEmployee',
-          username: ctx.from!.username,
-        },
-      });
+      const data = await getEmployee(ctx.from!.username!);
 
       ctx.reply(
         ctx.t('info-pribadi', {
