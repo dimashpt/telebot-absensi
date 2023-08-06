@@ -1,10 +1,16 @@
-import { MenuTemplate } from 'grammy-inline-menu';
+import { MenuTemplate, getMenuOfPath } from 'grammy-inline-menu';
 import { MainContext } from './context';
 import menuPresensi from './presensi';
-import { Router } from '@grammyjs/router';
-import { Composer, Keyboard } from 'grammy';
+import menuPengaturan from './pengaturan';
+import { Composer } from 'grammy';
+import { SubmenuOptions } from 'grammy-inline-menu/dist/source/buttons/submenu';
+import axios from 'axios';
+import { Employee } from './models';
 
 export const mainComposer = new Composer<MainContext>();
+const joinRow: SubmenuOptions<MainContext> = {
+  joinLastRow: true,
+};
 
 const menu = new MenuTemplate<MainContext>((ctx) => {
   return ctx.t('main-greetings', {
@@ -14,48 +20,41 @@ const menu = new MenuTemplate<MainContext>((ctx) => {
 
 menu.submenu(() => '✅ Presensi', 'presensi', menuPresensi);
 menu.submenu(() => '📝 Riwayat Kehadiran', 'riwayat', menuPresensi);
-menu.submenu(() => '🙎‍♂️ Informasi Diri', 'informasi', menuPresensi);
-menu.submenu(() => '⚙️ Pengaturan', 'pengaturan', menuPresensi);
+menu.submenu(() => '❌ Cuti', 'cuti', menuPresensi, joinRow);
+// menu.submenu(() => '🙎‍♂️ Informasi Pribadi', 'informasi', menuPresensi);
+menu.interact(() => '🙎‍♂️ Informasi Pribadi', 'informasi', {
+  do: async (ctx, path) => {
+    try {
+      const { data } = await axios.get<Employee>(process.env.SCRIPT_URL!, {
+        params: {
+          action: 'getEmployee',
+          username: ctx.from!.username,
+        },
+      });
 
-// Tentukan aksi yang akan dilakukan ketika berada di tahap form "day".
-// const day = router.route('/');
+      ctx.reply(
+        ctx.t('info-pribadi', {
+          nik: data.nik,
+          username: data.username,
+          nama_pegawai: data.nama_pegawai,
+          jabatan: data.jabatan,
+          gaji_pokok: data.gaji_pokok,
+          tunjangan: data.tunjangan,
+          total_gaji: data.total_gaji,
+          masa_kerja: data.masa_kerja,
+          aktif: data.aktif ? 'Aktif' : 'Tidak Aktif',
+        }),
+      );
 
-// day.on('message:text', async (ctx) => {
-//   const day = parseInt(ctx.msg.text, 10);
+      return '../riwayat';
+    } catch (error) {
+      console.error(error);
+      ctx.reply('Terjadi kesalahan saat mengambil data');
 
-//   if (isNaN(day) || day < 1 || 31 < day) {
-//     await ctx.reply('Ups, itu bukan tanggal yang valid. Silahkan coba lagi!');
-//     return;
-//   }
-//   ctx.session.step = day.toString();
-//   // Form lanjutan untuk step "month"
-//   ctx.session.step = 'month';
-//   await ctx.reply('Baik! Sekarang, kirim bulannya!', {
-//     reply_markup: {
-//       one_time_keyboard: true,
-//       keyboard: new Keyboard()
-//         .text('Jan')
-//         .text('Feb')
-//         .text('Mar')
-//         .row()
-//         .text('Apr')
-//         .text('May')
-//         .text('Jun')
-//         .row()
-//         .text('Jul')
-//         .text('Aug')
-//         .text('Sep')
-//         .row()
-//         .text('Oct')
-//         .text('Nov')
-//         .text('Dec')
-//         .build(),
-//     },
-//   });
-// });
-
-// day.use((ctx) =>
-//   ctx.reply('Kirim tanggal ulang tahunmu dalam bentuk pesan teks!'),
-// );
+      return false;
+    }
+  },
+});
+menu.submenu(() => '⚙️ Pengaturan', 'pengaturan', menuPengaturan, joinRow);
 
 export default menu;

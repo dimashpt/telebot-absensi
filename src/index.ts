@@ -25,5 +25,3 @@ initMenu(bot);
 
 // Memulai bot
 initBot(bot);
-
-bot.use(mainComposer);

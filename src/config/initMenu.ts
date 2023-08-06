@@ -8,7 +8,9 @@ export default function initMenu(bot: Bot<MainContext>): void {
   const menuMiddleware = new MenuMiddleware('/', menu);
 
   // Menambahkan command ke dalam bot
-  bot.command('start', (ctx) => menuMiddleware.replyToContext(ctx));
+  bot.command('start', (ctx) => {
+    menuMiddleware.replyToContext(ctx);
+  });
 
   // Menggunakan middleware menu pada bot
   bot.use(menuMiddleware);

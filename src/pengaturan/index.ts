@@ -3,9 +3,9 @@ import { MainContext } from '../context';
 import { backButtons } from '../menu-general';
 import { Router } from '@grammyjs/router';
 
-const menu = new MenuTemplate<MainContext>((ctx) => 'Menu Presensi');
+const menu = new MenuTemplate<MainContext>((ctx) => 'Menu Settings');
 
-menu.interact(() => 'Check in', 'check-in', {
+menu.interact(() => 'Rumah', 'rumah', {
   do: async (ctx, path) => {
     const data = await fetch(
       'https://64ccda982eafdcdc851a5f76.mockapi.io/users',
@@ -13,7 +13,7 @@ menu.interact(() => 'Check in', 'check-in', {
 
     console.log(path);
 
-    return '../../settings';
+    return '/presensi';
   },
 });
 
