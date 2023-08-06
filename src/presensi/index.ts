@@ -1,6 +1,6 @@
-import { MenuTemplate } from "grammy-inline-menu";
-import { MainContext } from "../context";
-import { backButtons } from "../menu-general";
+import { MenuTemplate } from 'grammy-inline-menu';
+import { MainContext } from '../context';
+import { backButtons } from '../menu-general';
 
 const menu = new MenuTemplate<MainContext>((ctx) => 'Menu Presensi');
 

@@ -1,10 +1,12 @@
-import { MenuTemplate } from "grammy-inline-menu";
-import { MainContext } from "./context";
-import menuPresensi from "./presensi";
+import { MenuTemplate } from 'grammy-inline-menu';
+import { MainContext } from './context';
+import menuPresensi from './presensi';
 
-const menu = new MenuTemplate<MainContext>(ctx => ctx.t('main-greetings', {
-  name: ctx.from!.first_name,
-}));
+const menu = new MenuTemplate<MainContext>((ctx) =>
+  ctx.t('main-greetings', {
+    name: ctx.from!.first_name,
+  }),
+);
 
 menu.submenu(() => '✅ Presensi', 'presensi', menuPresensi);
 menu.submenu(() => '📝 Riwayat Kehadiran', 'riwayat', menuPresensi);
