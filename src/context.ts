@@ -3,13 +3,13 @@ import { I18nFlavor } from '@grammyjs/i18n';
 
 export type SessionData = {
   page?: number;
-  bodyparts?: string;
+  step?: string;
 };
 
-export function intialData(): SessionData {
+export function initialData(): SessionData {
   return {
     page: 0,
-    bodyparts: '',
+    step: '/',
   };
 }
 

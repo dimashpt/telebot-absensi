@@ -1,46 +1,29 @@
 // Import modul yang diperlukan
-import { FileAdapter } from '@grammyjs/storage-file';
-import { Bot, session } from 'grammy';
-import { MenuMiddleware } from 'grammy-inline-menu';
-import { intialData as initial, MainContext } from './context';
-import menu from './menu-main';
-import { I18n } from '@grammyjs/i18n';
+import { Bot } from 'grammy';
+import { MainContext } from './context';
+import initSession from './config/initSession';
+import initI18n from './config/initI18n';
+import initRouter from './config/initRouter';
+import initMenu from './config/initMenu';
+import initBot from './config/initBot';
+import { mainComposer } from './menu-main';
 
 // Membuat instance bot baru
 const bot = new Bot<MainContext>(process.env.BOT_TOKEN!);
 
-// Middleware untuk mengelola sesi pada bot
-bot.use(
-  session({
-    initial,
-    storage: new FileAdapter(),
-  }),
-);
+// Menggunakan middleware session pada bot
+initSession(bot);
 
-// Buat sebuah instance `I18n`.
-// Lanjutkan membaca untuk mengetahui bagaimana cara mengatur instance ini.
-const i18n = new I18n<MainContext>({
-  defaultLocale: 'id', // Lihat di bawah untuk informasi lebih lanjut.
-  directory: 'locales', // Muat semua file terjemahan dari locales/.
-});
+// Menggunakan middleware i18n pada bot
+initI18n(bot);
 
-bot.use(i18n);
-
-// Membuat middleware menu baru
-const menuMiddleware = new MenuMiddleware('/', menu);
-
-// Menambahkan command ke dalam bot
-bot.command('start', (ctx) => menuMiddleware.replyToContext(ctx));
+// Menggunakan middleware router pada bot
+initRouter(bot);
 
 // Menggunakan middleware menu pada bot
-bot.use(menuMiddleware);
-
-// Menetapkan command bot
-bot.api.setMyCommands([{ command: 'start', description: 'Buka menu utama' }]);
+initMenu(bot);
 
 // Memulai bot
-bot.start({
-  onStart(botInfo) {
-    console.log(new Date(), 'Bot starts as', botInfo.username);
-  },
-});
+initBot(bot);
+
+bot.use(mainComposer);
