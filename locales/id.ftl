@@ -22,7 +22,7 @@ presensi-info =
 
 # Informasi Karyawan
 info-karyawan =
-  Berikut informasi pribadi anda:
+  Berikut informasi pekerjaan anda:
 
   NIP					: {$nip}
   Username		: {$username}
