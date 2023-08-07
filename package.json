@@ -19,7 +19,8 @@
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "grammy": "^1.17.2",
-    "grammy-inline-menu": "^8.0.1"
+    "grammy-inline-menu": "^8.0.1",
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "@types/node": "^20.4.8",

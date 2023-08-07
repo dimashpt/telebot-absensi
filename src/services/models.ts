@@ -28,3 +28,13 @@ export interface EmployeeDetails {
   no_npwp: string;
   isi_detail: boolean;
 }
+
+export interface Cuti {
+  username: string;
+  tanggal_cuti: Date | string;
+  alasan_cuti: string;
+}
+
+export interface CutiResponse {
+  history_cuti: Cuti[];
+}

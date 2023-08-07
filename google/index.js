@@ -1,5 +1,5 @@
 function main() {
-  return findEmployee('dimashpt');
+  // return getListCuti('dimashpt');
 }
 
 function jsonResponse(obj) {
@@ -52,6 +52,22 @@ function findDetails(username) {
   return parsedData;
 }
 
+function getListCuti(username) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('cuti');
+  const dataRange = sheet.getRange(
+    1,
+    1,
+    sheet.getLastRow(),
+    sheet.getLastColumn(),
+  );
+  const data = dataRange.getValues();
+  const parsedData = parseData(data);
+
+  console.log(parsedData.filter((d) => d.username === username));
+
+  return parsedData;
+}
+
 function doGet(req) {
   const authenticatedUser = findEmployee(req.parameter.username);
   let response;
@@ -67,6 +83,8 @@ function doGet(req) {
     response = findEmployee(req.parameter.username);
   } else if (req.parameter.action === 'getEmployeeDetails') {
     response = findDetails(req.parameter.username);
+  } else if (req.parameter.action === 'getCutiHistory') {
+    response = getListCuti(req.parameter.username);
   } else {
     response = {
       error: true,
