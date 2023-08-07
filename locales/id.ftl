@@ -24,15 +24,17 @@ presensi-info =
 info-karyawan =
   Berikut informasi pekerjaan anda:
 
-  NIP					: {$nip}
-  Username		: {$username}
-  Nama				: {$nama_pegawai}
-  Jabatan			: {$jabatan}
-  Gaji Pokok	: {$gaji_pokok}
-  Tunjangan		: {$tunjangan}
-  Total Gaji	: {$total_gaji}
+  NIP                : <b><i>{$nip}</i></b>
+  Username     : {$username}
+  Nama            : {$nama_pegawai}
+  Jabatan         : {$jabatan}
+  Gaji Pokok	   : {$gaji_pokok}
+  Tunjangan		   : {$tunjangan}
+  Total Gaji	     : {$total_gaji}
   Bergabung sejak	: {$masa_kerja}
-  Status			: {$aktif}
+  ----------------------------------------
+  Status			           : <b>{$aktif}</b>
+  Sisa cuti           : <b>{$sisa_cuti}</b>
 
 # Informasi Pribadi
 info-pribadi =

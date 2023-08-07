@@ -1,7 +1,6 @@
 import { MenuTemplate } from 'grammy-inline-menu';
 import { MainContext } from '../context';
 import { menuBack } from '.';
-import { FluentVariable } from '@grammyjs/i18n/types/src/deps';
 import { servicePegawai } from '../services';
 
 const menu = new MenuTemplate<MainContext>(async (ctx) => {

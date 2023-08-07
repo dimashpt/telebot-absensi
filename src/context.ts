@@ -22,6 +22,7 @@ export function initialData(): SessionData {
       nama_pegawai: '',
       nip: '',
       username: '',
+      sisa_cuti: 0,
     },
   };
 }

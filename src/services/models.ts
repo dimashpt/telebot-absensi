@@ -10,6 +10,7 @@ export interface Employee {
   total_gaji: number;
   masa_kerja: Date | string;
   aktif: boolean;
+  sisa_cuti: number;
 }
 
 export interface EmployeeDetails {
