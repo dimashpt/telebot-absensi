@@ -3,7 +3,7 @@ import { MainContext } from '../context';
 import menuPresensi from './presensi';
 import menuPengaturan from './settings';
 import { SubmenuOptions } from 'grammy-inline-menu/dist/source/buttons/submenu';
-import { menuInformation, menuPribadi } from '.';
+import { menuCuti, menuHistoryPresensi, menuInformation, menuPribadi } from '.';
 
 const joinRow: SubmenuOptions<MainContext> = {
   joinLastRow: true,
@@ -27,8 +27,8 @@ mainMenu.submenu(
   menuPribadi,
   joinRow,
 );
-mainMenu.submenu(() => '📝 Riwayat Kehadiran', 'riwayat', menuPresensi);
-mainMenu.submenu(() => '❌ Cuti', 'cuti', menuPresensi, joinRow);
+mainMenu.submenu(() => '📝 Riwayat Kehadiran', 'riwayat', menuHistoryPresensi);
+mainMenu.submenu(() => '❌ Cuti', 'cuti', menuCuti, joinRow);
 mainMenu.submenu(() => '⚙️ Pengaturan', 'pengaturan', menuPengaturan);
 
 export default mainMenu;
