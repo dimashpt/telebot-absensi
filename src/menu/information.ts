@@ -7,8 +7,8 @@ const menu = new MenuTemplate<MainContext>((ctx) => {
   const data = ctx.session.user;
 
   // return 'Hello';
-  return ctx.t('info-pribadi', {
-    nik: data!.nik as FluentVariable,
+  return ctx.t('info-karyawan', {
+    nip: data!.nip as FluentVariable,
     username: data!.username as FluentVariable,
     nama_pegawai: data!.nama_pegawai as FluentVariable,
     jabatan: data!.jabatan as FluentVariable,

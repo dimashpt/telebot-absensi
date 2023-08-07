@@ -20,7 +20,7 @@ export function initialData(): SessionData {
       masa_kerja: '',
       jabatan: '',
       nama_pegawai: '',
-      nik: '',
+      nip: '',
       username: '',
     },
   };

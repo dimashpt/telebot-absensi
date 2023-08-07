@@ -1,10 +1,20 @@
-import axios from 'axios';
-import { Employee } from './models';
+import { Employee, EmployeeDetails } from './models';
+import { api } from '../helpers';
 
 export async function getEmployee(): Promise<Employee> {
-  const { data } = await axios.get<Employee>(process.env.SCRIPT_URL!, {
+  const { data } = await api<Employee>({
     params: {
       action: 'getEmployee',
+    },
+  });
+
+  return data;
+}
+
+export async function getDetails(): Promise<EmployeeDetails> {
+  const { data } = await api<EmployeeDetails>({
+    params: {
+      action: 'getEmployeeDetails',
     },
   });
 

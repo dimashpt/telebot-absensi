@@ -20,11 +20,11 @@ presensi-info =
 
   Silahkan kirimkan live location anda untuk melakukan presensi.
 
-# Informasi Pribadi
-info-pribadi =
+# Informasi Karyawan
+info-karyawan =
   Berikut informasi pribadi anda:
 
-  NIK					: {$nik}
+  NIP					: {$nip}
   Username		: {$username}
   Nama				: {$nama_pegawai}
   Jabatan			: {$jabatan}
@@ -33,3 +33,19 @@ info-pribadi =
   Total Gaji	: {$total_gaji}
   Bergabung sejak	: {$masa_kerja}
   Status			: {$aktif}
+
+# Informasi Pribadi
+info-pribadi =
+  Berikut informasi pribadi anda:
+
+  Nama lengkap : {$nama_lengkap}
+  Jenis kelamin : {$jenis_kelamin}
+  Tempat lahir : {$tempat_lahir}
+  Tanggal lahir : {$tanggal_lahir}
+  Telepon : {$telepon}
+  Agama : {$agama}
+  Menikah : {$menikah}
+  Alamat : {$alamat}
+  No ktp : {$no_ktp}
+  No npwp : {$no_npwp}
+  Isi detail : {$isi_detail}

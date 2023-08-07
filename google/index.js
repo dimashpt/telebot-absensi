@@ -1,5 +1,5 @@
 function main() {
-  // return findEmployee('dimashpt');
+  return findEmployee('dimashpt');
 }
 
 function jsonResponse(obj) {
@@ -10,7 +10,7 @@ function jsonResponse(obj) {
 
 function parseData(data, username) {
   const filtered = data.filter((employee) => employee[0] !== '');
-  const keys = filtered[0];
+  const keys = filtered[0].filter((key) => key !== '');
   const values = filtered.slice(1);
   const result = values.map((value) => {
     const obj = {};
@@ -37,18 +37,39 @@ function findEmployee(username) {
     SpreadsheetApp.getActiveSpreadsheet().getSheetByName('karyawan');
   const dataRange = sheet.getRange(1, 1, 100, 10);
   const data = dataRange.getValues();
-  const parsedData = parseData(data);
+  const parsedData = parseData(data, username);
 
   return parsedData;
 }
 
-function doGet(e) {
+function findDetails(username) {
+  const sheet =
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName('detail karyawan');
+  const dataRange = sheet.getRange(1, 1, 100, 15);
+  const data = dataRange.getValues();
+  const parsedData = parseData(data, username);
+
+  return parsedData;
+}
+
+function doGet(req) {
+  const authenticatedUser = findEmployee(req.parameter.username);
   let response;
 
-  if (e.parameter.action === 'getEmployee') {
-    response = findEmployee(e.parameter.username);
+  if (!authenticatedUser?.aktif) {
+    return jsonResponse({
+      error: true,
+      message: 'Anda tidak memiliki akses ke bot ini',
+    });
+  }
+
+  if (req.parameter.action === 'getEmployee') {
+    response = findEmployee(req.parameter.username);
+  } else if (req.parameter.action === 'getEmployeeDetails') {
+    response = findDetails(req.parameter.username);
   } else {
     response = {
+      error: true,
       message: 'Invalid action',
     };
   }

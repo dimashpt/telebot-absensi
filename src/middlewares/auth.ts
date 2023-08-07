@@ -1,11 +1,11 @@
 import { Bot, NextFunction } from 'grammy';
 import { MainContext } from '../context';
 import { getEmployee } from '../services/pegawai';
-import axios from 'axios';
+import { api } from '../helpers';
 
 async function axiosMiddleware(ctx: MainContext, next: NextFunction) {
-  axios.defaults.params = {};
-  axios.defaults.params.username = ctx.from!.username;
+  api.defaults.params = {};
+  api.defaults.params.username = ctx.from!.username;
 
   await next();
 }
