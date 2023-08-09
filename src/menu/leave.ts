@@ -23,13 +23,14 @@ const menu = new MenuTemplate<MainContext>(async (ctx) => {
   return `Riwayat cuti anda:\n\n${joinedString}`;
 });
 
-const subMenu = new MenuTemplate<MainContext>(async (ctx) => {
-  return 'Silakan kirimkan pengajuan cuti Anda melalui pesan teks';
+menu.interact('✉️ Ajukan Cuti', 'pengajuan-cuti', {
+  do: async (ctx) => {
+    ctx.conversation.enter('info-pribadi');
+
+    return true;
+  },
 });
 
-menu.submenu('✉️ Ajukan Cuti', 'pengajuan-cuti', subMenu);
-
 menu.manualRow(menuBack);
-subMenu.manualRow(menuBack);
 
 export default menu;

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@grammyjs/conversations':
+    specifier: ^1.1.2
+    version: 1.1.2(grammy@1.17.2)
   '@grammyjs/i18n':
     specifier: ^1.0.1
     version: 1.0.1(grammy@1.17.2)
@@ -83,6 +86,17 @@ packages:
     resolution: {integrity: sha512-Ge0Tnl7zZY0VvEfgsyLhjid8DzI1d0La0dgm+3m0/A8gZXgp5xwlyIyue5e4SCUuVB/3AH/0lun9LcJhhTwmbg==}
     dev: false
 
+  /@deno/shim-deno-test@0.4.0:
+    resolution: {integrity: sha512-oYWcD7CpERZy/TXMTM9Tgh1HD/POHlbY9WpzmAk+5H8DohcxG415Qws8yLGlim3EaKBT2v3lJv01x4G0BosnaQ==}
+    dev: false
+
+  /@deno/shim-deno@0.11.0:
+    resolution: {integrity: sha512-z5FRYleehfz1Z0Wp9jilB98cJRGV2HYiLN0FZu1/xwLrQk+hk5VaNKp1nEoyGrUM4MLruTlnhEbqHJwxfnbPLw==}
+    dependencies:
+      '@deno/shim-deno-test': 0.4.0
+      which: 2.0.2
+    dev: false
+
   /@deno/shim-deno@0.9.0:
     resolution: {integrity: sha512-iP+qdI4Oy/Mw9yv40TqdjNKL+stpKDo8drki2cKisTXgZf+GoIdMhIuODxSypRyv6wxIuHNx7ZiKE3Sl3kAHuw==}
     dependencies:
@@ -126,6 +140,20 @@ packages:
     resolution: {integrity: sha512-a8TLtmPi8xzPkCbp/OGFUo5yhRkHM2Ko9kOWP4znJr0WAhWyThaw3PnwX4vOTWOAMsV2uRt32PPDcEz63esSaA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
+
+  /@grammyjs/conversations@1.1.2(grammy@1.17.2):
+    resolution: {integrity: sha512-ARBxa8oBMips2E2ZBVhB5/UFuzx8F3d721p6dJSJ7wSX9Gzuw2KZuQJOrhQnbQWZLgZz4bKBRuqbGzazKXPtZg==}
+    engines: {node: ^12.20.0 || >=14.13.1}
+    peerDependencies:
+      grammy: ^1.10.0
+    dependencies:
+      '@grammyjs/types': 3.1.2
+      debug: 4.3.4
+      grammy: 1.17.2
+      o-son: 1.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@grammyjs/i18n@1.0.1(grammy@1.17.2):
     resolution: {integrity: sha512-oNUIj00QOde2XI7s03UPx2psULdr+nu63gavTFr9ZSNzwMZgCfzFHF9fvQ93KVu4AAJI9bjN1xrqANUFOdToKg==}
@@ -1381,6 +1409,12 @@ packages:
     dependencies:
       path-key: 4.0.0
     dev: true
+
+  /o-son@1.0.1:
+    resolution: {integrity: sha512-u3X+gVI4BalcHsFe75miy3UxG3pNcJzXDCS8N5eJLlYY1EdiUC8amUsbXMWlAqJUKJgGTM9OBqAuxvTUACKs2g==}
+    dependencies:
+      '@deno/shim-deno': 0.11.0
+    dev: false
 
   /once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}

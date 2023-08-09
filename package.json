@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@grammyjs/conversations": "^1.1.2",
     "@grammyjs/i18n": "^1.0.1",
     "@grammyjs/menu": "^1.2.1",
     "@grammyjs/router": "^2.0.0",

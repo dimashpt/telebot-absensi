@@ -51,3 +51,16 @@ info-pribadi =
   No ktp : {$no_ktp}
   No npwp : {$no_npwp}
   Isi detail : {$isi_detail}
+
+# Informasi Cuti
+kapan-cuti =
+  Kapan anda akan mengajukan cuti?
+  Kirimkan dengan format: DD-MM-YYYY
+  Contoh: 22-07-2023
+
+summary-cuti =
+  Berikut informasi cuti anda:
+
+  Tanggal: {$tanggal_mulai} s/d {$tanggal_akhir}
+  Jumlah hari: {$jumlah_hari}
+  Keterangan: {$alasan}

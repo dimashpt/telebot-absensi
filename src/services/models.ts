@@ -33,6 +33,7 @@ export interface Cuti {
   username: string;
   tanggal_cuti: Date | string;
   alasan_cuti: string;
+  status: 'pending' | 'approved' | 'rejected';
 }
 
 export interface CutiResponse {

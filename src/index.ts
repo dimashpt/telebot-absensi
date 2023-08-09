@@ -3,6 +3,7 @@ import { Bot } from 'grammy';
 import { MainContext } from './context';
 import {
   middlewareAuth,
+  middlewareConversation,
   middlewareI18n,
   middlewareMenu,
   middlewareRouter,
@@ -23,6 +24,9 @@ middlewareI18n(bot);
 
 // Menggunakan middleware router pada bot
 middlewareRouter(bot);
+
+// Menggunakan middleware conversation pada bot
+middlewareConversation(bot);
 
 // Menggunakan middleware menu pada bot
 middlewareMenu(bot);

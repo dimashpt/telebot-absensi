@@ -1,6 +1,7 @@
 import type { Context, SessionFlavor } from 'grammy';
 import { I18nFlavor } from '@grammyjs/i18n';
 import { Employee } from './services/models';
+import { ConversationFlavor } from '@grammyjs/conversations';
 
 export type SessionData = {
   page?: number;
@@ -27,4 +28,7 @@ export function initialData(): SessionData {
   };
 }
 
-export type MainContext = Context & SessionFlavor<SessionData> & I18nFlavor;
+export type MainContext = Context &
+  SessionFlavor<SessionData> &
+  I18nFlavor &
+  ConversationFlavor;
