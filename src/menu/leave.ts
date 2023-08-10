@@ -12,6 +12,9 @@ const menu = new MenuTemplate<MainContext>(async (ctx) => {
     return 'Anda belum pernah mengajukan cuti sebelumnya';
   }
 
+  ctx.session.cuti = data;
+  ctx.session.user!.sisa_cuti = data.sisa_cuti;
+
   if ((data.history_cuti || []).length > 0) {
     data.history_cuti.forEach((cuti, index) => {
       joinedString += `${index + 1}. ${moment(cuti.tanggal_cuti).format(
@@ -26,13 +29,30 @@ const menu = new MenuTemplate<MainContext>(async (ctx) => {
     });
   }
 
-  return `Riwayat cuti anda:\n\n${joinedString}`;
+  return `
+Sisa cuti: ${data.sisa_cuti} hari
+Riwayat cuti anda:\n\n${joinedString}`;
 });
 
 menu.interact('✉️ Ajukan Cuti', 'pengajuan-cuti', {
   do: async (ctx) => {
-    if (ctx.session.user!.sisa_cuti! < 1) {
+    const filterPending = (ctx.session.cuti?.history_cuti || []).filter(
+      (cuti) => {
+        return cuti.status === 'pending';
+      },
+    );
+
+    if (ctx.session.cuti!.sisa_cuti! < 1) {
       const msg = 'Sisa cuti anda sudah habis untuk tahun ini';
+
+      ctx.answerCallbackQuery(msg);
+      ctx.reply(msg);
+      return false;
+    }
+
+    if (filterPending.length > 0) {
+      const msg =
+        'Anda masih memiliki pengajuan cuti yang belum diproses, silahkan tunggu hingga pengajuan cuti sebelumnya disetujui atau ditolak';
 
       ctx.answerCallbackQuery(msg);
       ctx.reply(msg);

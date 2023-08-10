@@ -32,10 +32,13 @@ export interface EmployeeDetails {
 export interface Cuti {
   username: string;
   tanggal_cuti: Date | string;
+  tanggal_akhir_cuti: Date | string;
+  jumlah_hari: number;
   alasan_cuti: string;
   status: 'pending' | 'approved' | 'rejected';
 }
 
 export interface CutiResponse {
+  sisa_cuti: number;
   history_cuti: Cuti[];
 }
