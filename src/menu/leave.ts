@@ -16,7 +16,13 @@ const menu = new MenuTemplate<MainContext>(async (ctx) => {
     data.history_cuti.forEach((cuti, index) => {
       joinedString += `${index + 1}. ${moment(cuti.tanggal_cuti).format(
         'dddd, D MMMM YYYY',
-      )} - ${cuti.alasan_cuti}\n`;
+      )} - ${cuti.alasan_cuti}\n (${
+        cuti.status === 'approved'
+          ? '✅ Disetujui'
+          : cuti.status === 'rejected'
+          ? '❌ Ditolak'
+          : '⏳ Menunggu Persetujuan'
+      })\n`;
     });
   }
 

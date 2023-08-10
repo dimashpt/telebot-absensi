@@ -61,11 +61,11 @@ function getListCuti(username) {
     sheet.getLastColumn(),
   );
   const data = dataRange.getValues();
-  const parsedData = parseData(data);
+  const parsedData = parseData(data).filter((d) => d.username === username);
 
-  console.log(parsedData.filter((d) => d.username === username));
-
-  return parsedData;
+  return {
+    history_cuti: parsedData,
+  };
 }
 
 function doGet(req) {
@@ -90,6 +90,36 @@ function doGet(req) {
       error: true,
       message: 'Invalid action',
     };
+  }
+
+  return jsonResponse(response);
+}
+
+function doPost(req) {
+  const { parameter, postData: { contents, type } = {} } = req;
+  const authenticatedUser = findEmployee(parameter.username);
+  let response;
+
+  if (!authenticatedUser?.aktif) {
+    return jsonResponse({
+      error: true,
+      message: 'Anda tidak memiliki akses ke bot ini',
+    });
+  }
+
+  if (type === 'application/json') {
+    const jsonData = JSON.parse(contents);
+
+    if (req.parameter.action === 'postCuti') {
+      response = addCuti(req.parameter.username);
+    } else {
+      response = {
+        error: true,
+        message: 'Invalid action',
+      };
+    }
+
+    return ContentService.createTextOutput(JSON.stringify(jsonData));
   }
 
   return jsonResponse(response);
