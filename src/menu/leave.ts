@@ -31,6 +31,14 @@ const menu = new MenuTemplate<MainContext>(async (ctx) => {
 
 menu.interact('✉️ Ajukan Cuti', 'pengajuan-cuti', {
   do: async (ctx) => {
+    if (ctx.session.user!.sisa_cuti! < 1) {
+      const msg = 'Sisa cuti anda sudah habis untuk tahun ini';
+
+      ctx.answerCallbackQuery(msg);
+      ctx.reply(msg);
+      return false;
+    }
+
     ctx.conversation.enter('info-pribadi');
 
     return true;
