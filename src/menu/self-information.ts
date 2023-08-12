@@ -28,6 +28,14 @@ const menu = new MenuTemplate<MainContext>(async (ctx) => {
   }
 });
 
+menu.interact('✍️ Ubah Informasi', 'ubah-informasi', {
+  do: async (ctx) => {
+    ctx.conversation.enter('info-pribadi');
+
+    return true;
+  },
+});
+
 menu.manualRow(menuBack);
 
 export default menu;

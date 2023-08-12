@@ -28,25 +28,25 @@
 */
 function doPresence(waNumber, latlang) {
   // menginisiasi semua sheet yang dibutuhkan
-  var sheetPresensi =
+  let sheetPresensi =
     SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Presensi');
-  var sheetLog = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Log');
-  var sheetDataPegawai =
+  let sheetLog = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Log');
+  let sheetDataPegawai =
     SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Data-Pegawai');
-  var sheetSettings =
+  let sheetSettings =
     SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Settings');
 
   // ambil range data di sheet Data-Pegawai
-  var rangeDataPegawai = sheetDataPegawai.getDataRange();
-  var dataPegawai = rangeDataPegawai.getValues();
+  let rangeDataPegawai = sheetDataPegawai.getDataRange();
+  let dataPegawai = rangeDataPegawai.getValues();
 
   // ambil range data di sheet Presensi
-  var rangePresensi = sheetPresensi.getDataRange();
-  var presensi = rangePresensi.getValues();
+  let rangePresensi = sheetPresensi.getDataRange();
+  let presensi = rangePresensi.getValues();
 
   // ambil range data di sheet Settings
-  var rangeSettings = sheetSettings.getDataRange();
-  var settings = rangeSettings.getValues();
+  let rangeSettings = sheetSettings.getDataRange();
+  let settings = rangeSettings.getValues();
 
   // cek apakah terdapat data pegawai berdasarkan nomor wa
   if (!findPegawaiByWaNumber(waNumber)) {
@@ -57,33 +57,32 @@ function doPresence(waNumber, latlang) {
       message: `Data pegawai ${waNumber} tidak ditemukan`,
     };
 
-    console.log(response);
     return ContentService.createTextOutput(
       JSON.stringify(response),
     ).setMimeType(ContentService.MimeType.JSON);
   }
 
   // inisiasi untuk memanggil data pegawai
-  var dataPegawai = findPegawaiByWaNumber(waNumber);
+  dataPegawai = findPegawaiByWaNumber(waNumber);
 
   // inisiasi latlang
-  var latlngPegawai = latlang.split(',');
-  var latPegawai = parseFloat(latlngPegawai[0]);
-  var lngPegawai = parseFloat(latlngPegawai[1]);
+  let latlngPegawai = latlang.split(',');
+  let latPegawai = parseFloat(latlngPegawai[0]);
+  let lngPegawai = parseFloat(latlngPegawai[1]);
 
   // get latlang di sheet Settings row B5
   // settings[4][1] = maksudnya ambil data di baris index ke 4 dan kolom index 1 -> B5
   // mulai index dari 0
-  var latlngUsaha = settings[4][1].split(',');
-  var latUsaha = parseFloat(latlngUsaha[0]);
-  var lngUsaha = parseFloat(latlngUsaha[1]);
+  let latlngUsaha = settings[4][1].split(',');
+  let latUsaha = parseFloat(latlngUsaha[0]);
+  let lngUsaha = parseFloat(latlngUsaha[1]);
 
   // get latlang di sheet Settings row B6
   // settings[5][1] = maksudnya ambil data di baris index ke 5 dan kolom index 1 -> B6
-  var radius = settings[5][1];
+  let radius = settings[5][1];
 
   //hitung titik lokasi absen masuk dalam radius yg diizinkan dengan metode Haversine
-  var dist = getDistance(latPegawai, lngPegawai, latUsaha, lngUsaha);
+  let dist = getDistance(latPegawai, lngPegawai, latUsaha, lngUsaha);
   if (dist > radius) {
     // return pesan gagal jika diluar area
     const response = {
@@ -92,33 +91,32 @@ function doPresence(waNumber, latlang) {
       message: 'Anda tidak berada dalam jangkauan area',
     };
 
-    console.log(response);
     return ContentService.createTextOutput(
       JSON.stringify(response),
     ).setMimeType(ContentService.MimeType.JSON);
   }
 
   // inisiasi untuk mengambil tanggal dan jam sekarang
-  var now = new Date();
-  var dateToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var jam = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-  console.log(dateToday);
+  let now = new Date();
+  let dateToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let jam = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
 
   //# lakukan INSERT ke Log Presensi setiap kali melakukan absen
-  var rowLog = [dateToday, jam, dataPegawai[1], waNumber, latlang];
+  let rowLog = [dateToday, jam, dataPegawai[1], waNumber, latlang];
   sheetLog.appendRow(rowLog);
 
-  var response = {};
+  let response = {};
 
   // generate id berdasarkan lastrow untuk data di sheet Presensi
-  var lastRowPresensi = sheetPresensi.getLastRow();
+  let lastRowPresensi = sheetPresensi.getLastRow();
 
   // Ambil ID dari row sebelumnya
-  var lastIdPresensi = sheetPresensi.getRange(lastRowPresensi, 1).getValue();
-  var newIdPresensi = lastIdPresensi + 1;
+  let lastIdPresensi = sheetPresensi.getRange(lastRowPresensi, 1).getValue();
+  let newIdPresensi = lastIdPresensi + 1;
 
   // cek apakah pegawai sudah absen atau belum hari ini
-  var presensiData = findPresenceTodayByStaff(dateToday, waNumber);
+  let presensiData = findPresenceTodayByStaff(dateToday, waNumber);
+
   if (presensiData) {
     console.log('Sudah absen pagi');
     var row = presensiData;
@@ -202,7 +200,7 @@ function doPresence(waNumber, latlang) {
       },
     };
   }
-  console.log(JSON.stringify(response));
+
   return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(
     ContentService.MimeType.JSON,
   );

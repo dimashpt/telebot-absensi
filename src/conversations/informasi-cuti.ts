@@ -3,10 +3,10 @@ import { MainContext } from '../context';
 import moment from 'moment';
 import { serviceCuti } from '../services';
 
-type InfoPribadiConversation = Conversation<MainContext>;
+type InfoCutiConversation = Conversation<MainContext>;
 
 async function infoPribadi(
-  conversation: InfoPribadiConversation,
+  conversation: InfoCutiConversation,
   ctx: MainContext,
 ) {
   let done = false;
@@ -19,15 +19,18 @@ async function infoPribadi(
       const leaveDay = await conversation.form.text();
       const leaveDayDate = moment(leaveDay, 'DD-MM-YYYY');
 
-      await ctx.reply('Berapa hari anda akan cuti?');
-      const leaveCount = await conversation.form.number();
+      await ctx.reply(
+        `Berapa hari anda akan cuti? (maksimal ${ctx.session.cuti?.sisa_cuti})`,
+      );
+
+      const leaveCount = await conversation.form.number((_ctx) => {
+        _ctx.reply('Masukan angka yang valid');
+      });
       const leaveUntil = moment(leaveDayDate)
         .add(leaveCount - 1, 'days')
         .format('DD-MM-YYYY');
 
-      await ctx.reply(
-        `Apa alasan anda mengajukan cuti? (maksimal ${ctx.session.user?.sisa_cuti})`,
-      );
+      await ctx.reply('Apa alasan anda mengajukan cuti?');
 
       const leaveReason = await conversation.form.text();
 
@@ -42,14 +45,14 @@ async function infoPribadi(
 
       await ctx.reply('Apakah data diatas sudah benar? (y/n)');
 
-      const confirmation = await conversation.form.text();
+      const confirmation = await conversation.form.select(['y', 'n']);
 
       done = confirmation === 'y';
 
       hasil = {
         tanggal_mulai: leaveDayDate.format('DD-MM-YYYY'),
         tanggal_akhir: leaveUntil,
-        jumlah_hari: leaveCount - 1,
+        jumlah_hari: leaveCount,
         alasan: leaveReason,
       };
     } while (!done);

@@ -20,3 +20,16 @@ export async function getDetails(): Promise<EmployeeDetails> {
 
   return data;
 }
+
+export async function updateInformasiPribadi(
+  details: EmployeeDetails,
+): Promise<EmployeeDetails> {
+  const { data } = await api<EmployeeDetails>({
+    params: {
+      action: 'updateInformasiPribadi',
+      ...details,
+    },
+  });
+
+  return data;
+}

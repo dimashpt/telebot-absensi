@@ -19,7 +19,6 @@
         "ignoreUrls": true
       }
     ],
-    "no-console": "warn",
-    "prefer-const": "error"
+    "no-console": "warn"
   }
 }

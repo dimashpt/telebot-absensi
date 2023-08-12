@@ -59,7 +59,7 @@ menu.interact('✉️ Ajukan Cuti', 'pengajuan-cuti', {
       return false;
     }
 
-    ctx.conversation.enter('info-pribadi');
+    ctx.conversation.enter('info-cuti');
 
     return true;
   },
