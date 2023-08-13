@@ -10,6 +10,9 @@ export default function initMenu(bot: Bot<MainContext>): void {
 
   // Menambahkan command ke dalam bot
   bot.command('start', async (ctx) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete ctx.session.conversation;
     try {
       const data = await servicePegawai.getEmployee();
 

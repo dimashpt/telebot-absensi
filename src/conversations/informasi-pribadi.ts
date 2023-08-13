@@ -76,12 +76,11 @@ async function infoCuti(
         isi_detail: (hasil.isi_detail ? 'Ya' : 'Tidak') || '',
       }),
     );
+
     await ctx.reply('Apakah data yang anda masukkan sudah benar? (y/n)');
     const confirmation = await form.select(['y', 'n']);
 
     done = confirmation === 'y';
-
-    console.log(hasil);
   } while (!done);
 
   await conversation.external(
@@ -89,7 +88,7 @@ async function infoCuti(
       await servicePegawai.updateInformasiPribadi(hasil as EmployeeDetails),
   );
 
-  await ctx.reply('Data pribadiberhasil diubah');
+  await ctx.reply('Data pribadi berhasil diubah');
 
   return;
 }

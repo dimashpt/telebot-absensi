@@ -35,6 +35,8 @@ info-karyawan =
   ----------------------------------------
   Status			           : <b>{$aktif}</b>
   Sisa cuti           : <b>{$sisa_cuti}</b>
+  ----------------------------------------
+  ⚠️ Jika terdapat ketidaksesuaian data, silahkan hubungi personalia.
 
 # Informasi Pribadi
 info-pribadi =
