@@ -15,9 +15,9 @@ const mainMenu = new MenuTemplate<MainContext>((ctx) => {
   });
 });
 
-mainMenu.submenu(() => '✅ Presensi', 'presensi', menuPresensi);
+mainMenu.submenu(() => '🖐️ Presensi', 'presensi', menuPresensi);
 mainMenu.submenu(
-  () => '👨‍🏫 Informasi Karyawan',
+  () => 'ℹ️ Informasi Karyawan',
   'informasi-karyawan',
   menuInformation,
 );

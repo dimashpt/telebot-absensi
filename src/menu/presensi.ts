@@ -4,16 +4,17 @@ import { menuBack } from '.';
 
 const menu = new MenuTemplate<MainContext>((ctx) => 'Menu Presensi');
 
-menu.interact(() => 'Check in', 'check-in', {
+menu.interact(() => '✅ Check in', 'check-in', {
   do: async (ctx, path) => {
-    const data = await fetch(
-      'https://64ccda982eafdcdc851a5f76.mockapi.io/users',
-    );
-
-    console.log(path);
-
-    return '../../settings';
+    return true;
   },
+});
+
+menu.interact(() => '❌ Check out', 'check-out', {
+  do: async (ctx, path) => {
+    return true;
+  },
+  joinLastRow: true,
 });
 
 menu.manualRow(menuBack);
