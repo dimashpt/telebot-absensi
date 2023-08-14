@@ -42,3 +42,8 @@ export interface CutiResponse {
   sisa_cuti: number;
   history_cuti: Cuti[];
 }
+
+export interface PresensiResponse {
+  error?: boolean;
+  message?: string;
+}

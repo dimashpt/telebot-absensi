@@ -32,7 +32,10 @@ middlewareConversation(bot);
 middlewareMenu(bot);
 
 // Menetapkan command bot
-bot.api.setMyCommands([{ command: 'start', description: 'Buka menu utama' }]);
+bot.api.setMyCommands([
+  { command: 'start', description: 'Buka menu utama' },
+  { command: 'reset', description: 'Reset bot' },
+]);
 
 // Memulai bot
 bot.start({

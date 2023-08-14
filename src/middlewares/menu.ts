@@ -1,5 +1,5 @@
 import { Bot } from 'grammy';
-import { MainContext } from '../context';
+import { MainContext, initialData } from '../context';
 import { MenuMiddleware } from 'grammy-inline-menu';
 import menu from '../menu/main';
 import { servicePegawai } from '../services';
@@ -26,6 +26,10 @@ export default function initMenu(bot: Bot<MainContext>): void {
       // console.log(error);
       ctx.reply('Ada yang salah, harap coba beberapa saat lagi');
     }
+  });
+
+  bot.command('reset', (ctx) => {
+    ctx.session = initialData();
   });
 
   // Menggunakan middleware menu pada bot
