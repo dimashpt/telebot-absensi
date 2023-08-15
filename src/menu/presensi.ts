@@ -2,21 +2,24 @@ import { MenuTemplate } from 'grammy-inline-menu';
 import { MainContext } from '../context';
 import { menuBack } from '.';
 
-const menu = new MenuTemplate<MainContext>((ctx) => 'Menu Presensi');
+const menu = new MenuTemplate<MainContext>(async (ctx) => {
+  const mock = () =>
+    new Promise<any>((resolve) => {
+      setTimeout(() => {
+        resolve('Menu Presensi');
+      }, 100);
+    });
+  const data = await mock();
 
-menu.interact(() => '✅ Check in', 'check-in', {
+  return data;
+});
+
+menu.interact(() => '✅ Lakukan presensi', 'check-in', {
   do: async (ctx, path) => {
     ctx.conversation.enter('presensi-convo');
 
     return true;
   },
-});
-
-menu.interact(() => '❌ Check out', 'check-out', {
-  do: async (ctx, path) => {
-    return true;
-  },
-  joinLastRow: true,
 });
 
 menu.manualRow(menuBack);
