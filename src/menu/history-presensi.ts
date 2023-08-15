@@ -7,7 +7,7 @@ import moment from 'moment';
 function formatTime(datetime: string) {
   if (!datetime) return '-';
 
-  return moment.utc(datetime).add(7, 'hours').format('HH:mm');
+  return moment(datetime).format('HH:mm');
 }
 
 const menu = new MenuTemplate<MainContext>(async (ctx) => {
