@@ -6,6 +6,8 @@ const menu = new MenuTemplate<MainContext>((ctx) => 'Menu Presensi');
 
 menu.interact(() => '✅ Check in', 'check-in', {
   do: async (ctx, path) => {
+    ctx.conversation.enter('presensi-convo');
+
     return true;
   },
 });

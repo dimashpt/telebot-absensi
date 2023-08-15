@@ -45,7 +45,7 @@ menu.interact('✉️ Ajukan Cuti', 'pengajuan-cuti', {
     if (ctx.session.cuti!.sisa_cuti! < 1) {
       const msg = 'Sisa cuti anda sudah habis untuk tahun ini';
 
-      ctx.answerCallbackQuery(msg);
+      // ctx.answerCallbackQuery(msg);
       ctx.reply(msg);
       return false;
     }
@@ -54,7 +54,7 @@ menu.interact('✉️ Ajukan Cuti', 'pengajuan-cuti', {
       const msg =
         'Anda masih memiliki pengajuan cuti yang belum diproses, silahkan tunggu hingga pengajuan cuti sebelumnya disetujui atau ditolak';
 
-      ctx.answerCallbackQuery(msg);
+      // ctx.answerCallbackQuery(msg);
       ctx.reply(msg);
       return false;
     }
