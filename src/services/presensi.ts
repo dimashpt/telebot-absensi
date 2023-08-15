@@ -1,4 +1,4 @@
-import { PresensiResponse } from './models';
+import { PresensiHistoryResponse, PresensiResponse } from './models';
 import { api } from '../helpers';
 
 export async function presensi(coordinate: string): Promise<PresensiResponse> {
@@ -6,6 +6,16 @@ export async function presensi(coordinate: string): Promise<PresensiResponse> {
     params: {
       action: 'presensi',
       coordinate,
+    },
+  });
+
+  return data;
+}
+
+export async function getHistoryPresensi(): Promise<PresensiHistoryResponse> {
+  const { data } = await api<PresensiHistoryResponse>({
+    params: {
+      action: 'historyPresensi',
     },
   });
 

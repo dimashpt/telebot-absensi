@@ -47,3 +47,19 @@ export interface PresensiResponse {
   error?: boolean;
   message?: string;
 }
+
+export interface Presensi {
+  username: string;
+  nama: string;
+  tanggal: Date | string;
+  jam_datang: string;
+  jam_pulang: string;
+  koordinat_datang: string;
+  koordinat_pulang: string;
+  status: string;
+  keterangan: string;
+}
+
+export interface PresensiHistoryResponse {
+  history_presensi: Presensi[];
+}
