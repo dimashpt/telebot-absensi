@@ -10,7 +10,7 @@ enum JK {
   P = 'Perempuan',
 }
 
-async function infoCuti(
+async function infoPribadi(
   conversation: InfoPribadiConversation,
   ctx: MainContext,
 ) {
@@ -77,9 +77,10 @@ async function infoCuti(
       }),
     );
 
-    await ctx.reply('Apakah data yang anda masukkan sudah benar? (y/n)');
-    const confirmation = await form.select(['y', 'n']);
+    await ctx.reply('Apakah data yang anda masukkan sudah benar? (y/n/c)');
+    const confirmation = await form.select(['y', 'n', 'c']);
 
+    if (confirmation === 'c') return;
     done = confirmation === 'y';
   } while (!done);
 
@@ -93,4 +94,4 @@ async function infoCuti(
   return;
 }
 
-export default infoCuti;
+export default infoPribadi;

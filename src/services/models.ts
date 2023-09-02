@@ -5,9 +5,7 @@ export interface Employee {
   username: string;
   nama_pegawai: string;
   jabatan: string;
-  gaji_pokok: number;
-  tunjangan: number;
-  total_gaji: number;
+  gaji: number;
   masa_kerja: Date | string;
   aktif: boolean;
   sisa_cuti: number;
@@ -62,4 +60,17 @@ export interface Presensi {
 
 export interface PresensiHistoryResponse {
   history_presensi: Presensi[];
+}
+
+export interface Pengaturan {
+  nama_perusahaan: string;
+  jam_kedatangan: string;
+  jam_pulang: string;
+  latitude: string;
+  longitud: string;
+  radius: number;
+  cuti_tahunan: number;
+  alamat_kantor: string;
+  username_portal?: string;
+  password_portal?: string;
 }

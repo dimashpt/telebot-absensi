@@ -22,13 +22,17 @@ async function presensiConvo(
     }
   } while (!latlong);
 
-  await servicePresensi.presensi(latlong);
+  const doPresence = await servicePresensi.presensi(latlong);
 
-  await ctx.reply(
-    `Terima kasih, anda berhasil check in pada pukul ${moment().format(
-      'HH:mm',
-    )}.`,
-  );
+  if (doPresence.error) {
+    await ctx.reply(doPresence.message!);
+  } else {
+    await ctx.reply(
+      `Terima kasih, anda berhasil check in pada pukul ${moment().format(
+        'HH:mm',
+      )}.`,
+    );
+  }
 
   return;
 }

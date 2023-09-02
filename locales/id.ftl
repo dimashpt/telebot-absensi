@@ -28,9 +28,7 @@ info-karyawan =
   Username     : {$username}
   Nama            : {$nama_pegawai}
   Jabatan         : {$jabatan}
-  Gaji Pokok	   : {$gaji_pokok}
-  Tunjangan		   : {$tunjangan}
-  Total Gaji	     : {$total_gaji}
+  Gaji	               : {$gaji}
   Bergabung sejak	: {$masa_kerja}
   ----------------------------------------
   Status			           : <b>{$aktif}</b>
@@ -52,7 +50,6 @@ info-pribadi =
   Alamat : {$alamat}
   No ktp : {$no_ktp}
   No npwp : {$no_npwp}
-  Isi detail : {$isi_detail}
 
 # Informasi Cuti
 kapan-cuti =
@@ -66,3 +63,14 @@ summary-cuti =
   Tanggal: {$tanggal_mulai} s/d {$tanggal_akhir}
   Jumlah hari: {$jumlah_hari}
   Keterangan: {$alasan}
+
+presensi =
+  Informasi Peraturan Presensi
+  PT. Kredensia Cipta Utama
+  ------------------
+  Jam masuk: {$jam_masuk}
+  Jam pulang: {$jam_pulang}
+  Alamat Kantor: {$alamat}
+  Toleransi Radius: {$radius} meter
+  ------------------
+  Silakan lakukan presensi dengan memilih menu di bawah ini:

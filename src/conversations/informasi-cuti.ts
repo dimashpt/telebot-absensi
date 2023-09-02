@@ -43,11 +43,13 @@ async function infoPribadi(
         }),
       );
 
-      await ctx.reply('Apakah data diatas sudah benar? (y/n)');
+      await ctx.reply('Apakah data diatas sudah benar? (y/n/c)');
 
-      const confirmation = await conversation.form.select(['y', 'n']);
+      const confirmation = await conversation.form.select(['y', 'n', 'c']);
 
       done = confirmation === 'y';
+
+      if (confirmation === 'c') return;
 
       hasil = {
         tanggal_mulai: leaveDayDate.format('DD-MM-YYYY'),

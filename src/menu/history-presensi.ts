@@ -14,24 +14,35 @@ const menu = new MenuTemplate<MainContext>(async (ctx) => {
   const data = await servicePresensi.getHistoryPresensi();
   let joinedString = '';
 
-  // console.log(data);
-
   if ((data.history_presensi || []).length < 1) {
     return 'Anda belum pernah absen sebelumnya';
   }
 
-  if ((data.history_presensi || []).length > 0) {
-    data.history_presensi.forEach((presensi, index) => {
+  const range = 7;
+  const today = new Date();
+  const lastWeek = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - range,
+  );
+  const filteredData = data.history_presensi.filter(
+    (item) => new Date(item.tanggal) >= lastWeek,
+  );
+
+  if (filteredData.length > 0) {
+    filteredData.forEach((presensi, index) => {
       joinedString += `${index + 1}. ${moment(presensi.tanggal).format(
         'dddd, D MMMM YYYY',
       )}\n➡️${formatTime(presensi.jam_datang)}\n⬅️${formatTime(
         presensi.jam_pulang,
       )}\n\n`;
     });
+  } else {
+    joinedString = `Anda belum pernah absen dalam ${range} hari terakhir`;
   }
 
   return `
-Riwayat presensi anda:\n\n${joinedString}`;
+Riwayat presensi anda dalam 7 hari terakhir:\n\n${joinedString}\n⚠️ Untuk melihat silakan hubungi personalia`;
 });
 
 menu.manualRow(menuBack);

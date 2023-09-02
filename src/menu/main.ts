@@ -29,6 +29,5 @@ mainMenu.submenu(
 );
 mainMenu.submenu(() => '📝 Riwayat Kehadiran', 'riwayat', menuHistoryPresensi);
 mainMenu.submenu(() => '❌ Cuti', 'cuti', menuCuti, joinRow);
-mainMenu.submenu(() => '⚙️ Pengaturan', 'pengaturan', menuPengaturan);
 
 export default mainMenu;

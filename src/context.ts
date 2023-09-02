@@ -1,6 +1,6 @@
 import type { Context, SessionFlavor } from 'grammy';
 import { I18nFlavor } from '@grammyjs/i18n';
-import { CutiResponse, Employee } from './services/models';
+import { CutiResponse, Employee, Pengaturan } from './services/models';
 import { ConversationFlavor } from '@grammyjs/conversations';
 
 export type SessionData = {
@@ -8,6 +8,7 @@ export type SessionData = {
   step?: string;
   user?: Partial<Employee>;
   cuti?: Partial<CutiResponse>;
+  settings: Partial<Pengaturan>;
 };
 
 export function initialData(): SessionData {
@@ -16,9 +17,7 @@ export function initialData(): SessionData {
     step: '/',
     user: {
       aktif: false,
-      gaji_pokok: 0,
-      tunjangan: 0,
-      total_gaji: 0,
+      gaji: 0,
       masa_kerja: '',
       jabatan: '',
       nama_pegawai: '',
@@ -27,6 +26,7 @@ export function initialData(): SessionData {
       sisa_cuti: 0,
     },
     cuti: {},
+    settings: {},
   };
 }
 
