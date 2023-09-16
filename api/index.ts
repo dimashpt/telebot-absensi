@@ -1,5 +1,6 @@
 // Import modul yang diperlukan
-import { Bot } from 'grammy';
+import 'dotenv/config';
+import { Bot, webhookCallback } from 'grammy';
 import { MainContext } from './context';
 import {
   middlewareAuth,
@@ -43,3 +44,5 @@ bot.start({
     console.log(new Date(), 'Bot starts as', botInfo.username);
   },
 });
+
+export default webhookCallback(bot, 'http');
